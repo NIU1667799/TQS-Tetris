@@ -1,0 +1,108 @@
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+/*
+ * Tetromino
+ * Represents a falling piece
+ * Knows its shape, rotation states, color, and current position
+ * Can move left, right, and down
+ * Can rotate
+ * 
+ */
+public class TetrominoTest {
+    @Test
+    public void testTetrominoInitialization() {
+        /* We decided that shapes will be represented by a char, 
+        while the color will be represented by a value from 0 to 5 where:
+        0 -> red
+        1 -> green
+        2 -> blue
+        3 -> yellow 
+        4 -> magenta
+        5 -> cyan
+
+        color -> MIN, -1, 0, 1, 3, 4, 5, 6, MAX
+        shapes -> "I", "O", "T", "S", "Z", "J", "L"
+        */
+
+        try{
+            Tetromino tetrominoN100 = new Tetromino("T", -100);
+            assertTrue(false);
+        } catch (IllegalArgumentException e) {}
+
+        try{
+            Tetromino tetrominoN100 = new Tetromino("T", -1);
+            assertTrue(false);
+        } catch (IllegalArgumentException e) {}
+
+        Tetromino tetromino0 = new Tetromino("T", 0);
+        assertEquals(0, tetromino0.getColor());
+
+        Tetromino tetromino1 = new Tetromino("T", 1);
+        assertEquals(1, tetromino1.getColor());
+        Tetromino tetromino3 = new Tetromino("T", 3);
+        assertEquals(3, tetromino3.getColor()); 
+        Tetromino tetromino4 = new Tetromino("T", 4);
+        assertEquals(4, tetromino4.getColor());
+        Tetromino tetromino5 = new Tetromino("T", 5);
+        assertEquals(5, tetromino5.getColor());
+        
+        try{
+            Tetromino tetromino6 = new Tetromino("T", 6);
+            assertTrue(false);
+        } catch (IllegalArgumentException e) {}
+
+        try{
+            Tetromino tetromino100 = new Tetromino("T", 100);
+            assertTrue(false);
+        } catch (IllegalArgumentException e) {}
+
+        Tetramino tetraminoI = new Tetramino("I", 0);
+        assertEquals("I", tetraminoI.getShape());
+        Tetramino tetraminoO = new Tetramino("O", 0);
+        assertEquals("O", tetraminoO.getShape());
+        Tetramino tetraminoT = new Tetramino("T", 0);
+        assertEquals("T", tetraminoT.getShape());
+        Tetramino tetraminoS = new Tetramino("S", 0);
+        assertEquals("S", tetraminoS.getShape());
+        Tetramino tetraminoZ = new Tetramino("Z", 0);
+        assertEquals("Z", tetraminoZ.getShape());
+        Tetramino tetraminoJ = new Tetramino("J", 0);
+        assertEquals("J", tetraminoJ.getShape());
+        Tetramino tetraminoL = new Tetramino("L", 0);
+        assertEquals("L", tetraminoL.getShape());
+        try{
+            Tetromino tetrominoX = new Tetromino("X", 0);
+            assertTrue(false);
+        } catch (IllegalArgumentException e) {}
+
+    }
+
+    @Test
+    public void testTetraminoSettersAndGetters() {
+        Tetramino tetraminoI = new Tetramino();
+        // shapes ->"I", "O", "T", "S", "Z", "J", "L"
+        tetraminoI.setShape("I");
+        assertEquals("I", tetraminoI.getShape());
+        Tetramino tetraminoO = new Tetramino();
+        tetraminoO.setShape("O");
+        assertEquals("O", tetraminoO.getShape());
+        Tetramino tetraminoT = new Tetramino();
+        tetraminoT.setShape("T");
+        assertEquals("T", tetraminoT.getShape());
+        Tetramino tetraminoS = new Tetramino();
+        tetraminoS.setShape("S");
+        assertEquals("S", tetraminoS.getShape());
+        Tetramino tetraminoZ = new Tetramino();
+        tetraminoZ.setShape("Z");
+        assertEquals("Z", tetraminoZ.getShape());
+        Tetramino tetraminoJ = new Tetramino();
+        tetraminoJ.setShape("J");
+        assertEquals("J", tetraminoJ.getShape());
+        Tetramino tetraminoL = new Tetramino();
+        tetraminoL.setShape("L");
+        assertEquals("L", tetraminoL.getShape());
+    }
+
+
+}

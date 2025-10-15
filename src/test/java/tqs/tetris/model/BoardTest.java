@@ -14,6 +14,13 @@ import org.junit.jupiter.api.Test;
  * dimension, board created correctly
  * empty cells in the board
  * invalid size of board --> throw exceptions
+ * 
+ * ROW-->y, COL-->x
+ *  y=3 | (0,3) (1,3) (2,3) (3,3) (4,3)
+    y=2 | (0,2) (1,2) (2,2) (3,2) (4,2)
+    y=1 | (0,1) (1,1) (2,1) (3,1) (4,1)
+    y=0 | (0,0) (1,0) (2,0) (3,0) (4,0)   ← fila inferior
+        x=0   x=1   x=2   x=3   x=4
  */
 
 public class BoardTest {
@@ -91,6 +98,31 @@ public class BoardTest {
         // should be empty
         for (int x = 0; x < board.getWidth(); x++) {
             assertTrue(board.isEmpty(x, 0));
+        }
+
+        //fil two rows
+        for (int x = 0; x < board.getWidth(); x++) {
+            board.setCell(x, 0, true);
+            board.setCell(x, 1, true);
+        }
+        cleared = board.clearLines();
+        assertEquals(2, cleared);
+        for (int x = 0; x < board.getWidth(); x++) {
+            assertTrue(board.isEmpty(x, 0));
+            assertTrue(board.isEmpty(x, 1));
+        }
+
+        //fill two non consecutive rows
+        for (int x = 0; x < board.getWidth(); x++) {
+            board.setCell(x, 0, true);
+            board.setCell(x, 2, true);
+        }
+        cleared = board.clearLines();
+        assertEquals(2, cleared);
+        for (int x = 0; x < board.getWidth(); x++) {
+            assertTrue(board.isEmpty(x, 0));
+            assertTrue(board.isEmpty(x, 1));
+            assertTrue(board.isEmpty(x, 2));
         }
     }
 }

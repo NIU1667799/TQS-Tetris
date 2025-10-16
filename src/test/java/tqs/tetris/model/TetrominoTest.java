@@ -64,6 +64,7 @@ public class TetrominoTest {
         
         tetramino tetrominoL = new tetramino('L', 0);
         assertEquals('L', tetrominoL.getShape());
+
     }
 
     @Test
@@ -101,5 +102,35 @@ public class TetrominoTest {
         
         tetramino.setColor(5);
         assertEquals(5, tetramino.getColor());
+    }
+
+    @Test
+    public void testTetrominoRotation(){
+        /* Test rotation
+         * Initial rotation state is 
+         *  0 -> 0 degrees
+         *  1 -> 90 degrees
+         *  2 -> 180 degrees
+         *  3 -> 270 degrees
+         */
+        tetramino tetramino = new tetramino('I', 0);
+        assertEquals(0, tetramino.getRotation());
+        tetramino.rotateRight();
+        assertEquals(1, tetramino.getRotation());
+        tetramino.rotateRight();
+        assertEquals(2, tetramino.getRotation());
+        tetramino.rotateRight();
+        assertEquals(3, tetramino.getRotation());
+        tetramino.rotateRight();
+        assertEquals(0, tetramino.getRotation());
+
+        tetramino.rotateLeft();
+        assertEquals(3, tetramino.getRotation());
+        tetramino.rotateLeft();
+        assertEquals(2, tetramino.getRotation());
+        tetramino.rotateLeft();
+        assertEquals(1, tetramino.getRotation());
+        tetramino.rotateLeft();
+        assertEquals(0, tetramino.getRotation());
     }
 }

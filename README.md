@@ -20,8 +20,6 @@ A simple tetris game for a class project.
 - **Block**
   - Smallest unit (a single square)
   - Stores color and position relative to the board
-- **Score**
-  - Tracks points, lines cleared, and level progression
 - **GameState** (enum/class)
   - Defines states like `RUNNING`, `PAUSED`, `GAME_OVER`
 
@@ -50,7 +48,6 @@ src/
  │    ├── Tetromino.java
  │    ├── TetrominoFactory.java
  │    ├── Block.java
- │    ├── Score.java
  │    ├── GameState.java   (enum)
  │
  ├── view/
@@ -71,7 +68,6 @@ src/
     - Tetromino.java → Represents a piece (rotation, movement).
     - TetrominoFactory.java → Creates random tetrominoes.
     - Block.java → Smallest unit (color + position).
-    - Score.java → Tracks points, lines, levels.
     - GameState.java → Enum for RUNNING, PAUSED, GAME_OVER.
 
 - **View (UI/Rendering)**

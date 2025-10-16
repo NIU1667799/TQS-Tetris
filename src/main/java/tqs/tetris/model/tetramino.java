@@ -3,6 +3,8 @@ package tqs.tetris.model;
 public class tetramino {
     private char shape;
     private int color;
+    private int rotation;
+
     public tetramino(char shape, int color) {
         this.shape = shape;
         this.color = color;
@@ -24,6 +26,18 @@ public class tetramino {
     public void setColor(int c) {
         assert (c >= 0 && c <= 5) : "Invalid color";
         this.color = c;
+    }
+
+    public int getRotation() {
+        return rotation;
+    }
+
+    public void rotateLeft() {
+        rotation = (rotation + 3) % 4; 
+    }
+
+    public void rotateRight() {
+        rotation = (rotation + 1) % 4;
     }
 
 }

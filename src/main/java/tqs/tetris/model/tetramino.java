@@ -3,7 +3,7 @@ package tqs.tetris.model;
 public class tetramino {
     private char shape;
     private int color;
-    private int rotation;
+    private int rotation = 0;
 
     public tetramino(char shape, int color) {
         this.shape = shape;
@@ -32,12 +32,8 @@ public class tetramino {
         return rotation;
     }
 
-    public void rotateLeft() {
-        rotation = (rotation + 3) % 4; 
-    }
-
-    public void rotateRight() {
-        rotation = (rotation + 1) % 4;
+    public void rotate() {
+        rotation = (rotation + 1) % 4; 
     }
 
 }

@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 /*
  * Tetromino
  * Represents a falling piece
- * Knows its shape, rotation states, color, and current position
+ * Knows its shape, rotation states, color, etc
  * Can move left, right, and down
  * Can rotate
  */
@@ -115,22 +115,13 @@ public class TetrominoTest {
          */
         tetramino tetramino = new tetramino('I', 0);
         assertEquals(0, tetramino.getRotation());
-        tetramino.rotateRight();
+        tetramino.rotate();
         assertEquals(1, tetramino.getRotation());
-        tetramino.rotateRight();
+        tetramino.rotate();
         assertEquals(2, tetramino.getRotation());
-        tetramino.rotateRight();
+        tetramino.rotate();
         assertEquals(3, tetramino.getRotation());
-        tetramino.rotateRight();
-        assertEquals(0, tetramino.getRotation());
-
-        tetramino.rotateLeft();
-        assertEquals(3, tetramino.getRotation());
-        tetramino.rotateLeft();
-        assertEquals(2, tetramino.getRotation());
-        tetramino.rotateLeft();
-        assertEquals(1, tetramino.getRotation());
-        tetramino.rotateLeft();
+        tetramino.rotate();
         assertEquals(0, tetramino.getRotation());
     }
 }

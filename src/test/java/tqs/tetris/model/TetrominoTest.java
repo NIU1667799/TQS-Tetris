@@ -124,4 +124,68 @@ public class TetrominoTest {
         tetramino.rotate();
         assertEquals(0, tetramino.getRotation());
     }
+
+    @Test
+    public void testMatrixShape(){
+        // Test to see if each Tetramino returns it's correct matrix shape
+        // shapes -> 'I', 'O', 'T', 'S', 'Z', 'J', 'L'
+        tetramino tetraminoI = new tetramino('I', 0);
+        tetramino tetraminoO = new tetramino('O', 1);
+        tetramino tetraminoT = new tetramino('T', 2);
+        tetramino tetraminoS = new tetramino('S', 3);
+        tetramino tetraminoZ = new tetramino('Z', 4);
+        tetramino tetraminoJ = new tetramino('J', 5);
+        tetramino tetraminoL = new tetramino('L', 6);
+        
+        int[][] shapeI = {
+            {0, 0, 0, 0},
+            {1, 1, 1, 1},
+            {0, 0, 0, 0},
+            {0, 0, 0, 0}
+        };
+
+        int[][] shapeO = {
+            {1, 1},
+            {1, 1}
+        };
+
+        int[][] shapeT = {
+            {0, 1, 0},
+            {1, 1, 1},
+            {0, 0, 0}
+        };
+        
+        int[][] shapeS = {
+            {0, 1, 1},
+            {1, 1, 0},
+            {0, 0, 0}
+        };
+
+        int[][] shapeZ = {
+            {1, 1, 0},
+            {0, 1, 1},
+            {0, 0, 0}
+        };
+
+        int[][] shapeJ = {
+            {1, 0, 0},
+            {1, 1, 1},
+            {0, 0, 0}
+        };
+
+        int[][] shapeL = {
+            {0, 0, 1},
+            {1, 1, 1},
+            {0, 0, 0}
+        };
+
+        assertEquals(shapeI, tetraminoI.getShapeMatrix());
+        assertEquals(shapeO, tetraminoO.getShapeMatrix());
+        assertEquals(shapeT, tetraminoT.getShapeMatrix());
+        assertEquals(shapeS, tetraminoS.getShapeMatrix());
+        assertEquals(shapeZ, tetraminoZ.getShapeMatrix());
+        assertEquals(shapeJ, tetraminoJ.getShapeMatrix());
+        assertEquals(shapeL, tetraminoL.getShapeMatrix());
+    }
+
 }

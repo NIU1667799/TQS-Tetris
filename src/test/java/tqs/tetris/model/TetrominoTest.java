@@ -1,5 +1,6 @@
 package tqs.tetris.model;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
@@ -179,13 +180,13 @@ public class TetrominoTest {
             {0, 0, 0}
         };
 
-        assertEquals(shapeI, tetraminoI.getShapeMatrix());
-        assertEquals(shapeO, tetraminoO.getShapeMatrix());
-        assertEquals(shapeT, tetraminoT.getShapeMatrix());
-        assertEquals(shapeS, tetraminoS.getShapeMatrix());
-        assertEquals(shapeZ, tetraminoZ.getShapeMatrix());
-        assertEquals(shapeJ, tetraminoJ.getShapeMatrix());
-        assertEquals(shapeL, tetraminoL.getShapeMatrix());
+        assertArrayEquals(shapeI, tetraminoI.getShapeMatrix());
+        assertArrayEquals(shapeO, tetraminoO.getShapeMatrix());
+        assertArrayEquals(shapeT, tetraminoT.getShapeMatrix());
+        assertArrayEquals(shapeS, tetraminoS.getShapeMatrix());
+        assertArrayEquals(shapeZ, tetraminoZ.getShapeMatrix());
+        assertArrayEquals(shapeJ, tetraminoJ.getShapeMatrix());
+        assertArrayEquals(shapeL, tetraminoL.getShapeMatrix());
     }
 
 }

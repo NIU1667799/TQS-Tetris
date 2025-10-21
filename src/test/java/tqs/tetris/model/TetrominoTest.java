@@ -187,6 +187,168 @@ public class TetrominoTest {
         assertArrayEquals(shapeZ, tetraminoZ.getShapeMatrix());
         assertArrayEquals(shapeJ, tetraminoJ.getShapeMatrix());
         assertArrayEquals(shapeL, tetraminoL.getShapeMatrix());
-    }
+    
+        // I rotation tests
+        int[][] shapeI2 = {
+            {0, 0, 1, 0},
+            {0, 0, 1, 0},
+            {0, 0, 1, 0},
+            {0, 0, 1, 0}
+        };
+        tetraminoI.rotate();
+        assertArrayEquals(shapeI2, tetraminoI.getShapeMatrix());
 
+        int[][] shapeI3 = {
+            {0, 0, 0, 0},
+            {0, 0, 0, 0},
+            {1, 1, 1, 1},
+            {0, 0, 0, 0}
+        };
+        tetraminoI.rotate();
+        assertArrayEquals(shapeI3, tetraminoI.getShapeMatrix());
+
+        int[][] shapeI4 = {
+            {0, 1, 0, 0},
+            {0, 1, 0, 0},
+            {0, 1, 0, 0},
+            {0, 1, 0, 0}
+        };
+        tetraminoI.rotate();
+        assertArrayEquals(shapeI4, tetraminoI.getShapeMatrix());
+
+        // O rotation tests (should remain the same)
+        int [][] shapeO2 = {
+            {1, 1},
+            {1, 1}
+        };
+        tetraminoO.rotate();
+        assertArrayEquals(shapeO2, tetraminoO.getShapeMatrix());
+
+        tetraminoO.rotate();
+        assertArrayEquals(shapeO2, tetraminoO.getShapeMatrix());
+
+        tetraminoO.rotate();
+        assertArrayEquals(shapeO2, tetraminoO.getShapeMatrix());
+
+        tetraminoO.rotate();
+        assertArrayEquals(shapeO2, tetraminoO.getShapeMatrix());
+
+        // T rotation tests
+        int[][] shapeT2 = {
+            {0, 1, 0},
+            {0, 1, 1},
+            {0, 1, 0}
+        };
+        tetraminoT.rotate();
+        assertArrayEquals(shapeT2, tetraminoT.getShapeMatrix());
+
+        int[][] shapeT3 = {
+            {0, 0, 0},
+            {1, 1, 1},
+            {0, 1, 0}
+        };
+        tetraminoT.rotate();
+        assertArrayEquals(shapeT3, tetraminoT.getShapeMatrix());
+
+        int[][] shapeT4 = {
+            {0, 1, 0},
+            {1, 1, 0},
+            {0, 1, 0}
+        };
+        tetraminoT.rotate();
+        assertArrayEquals(shapeT4, tetraminoT.getShapeMatrix());
+
+        // S rotation tests
+        int[][] shapeS2 = {
+            {0, 1, 0},
+            {0, 1, 1},
+            {0, 0, 1}
+        };
+        tetraminoS.rotate();
+        assertArrayEquals(shapeS2, tetraminoS.getShapeMatrix());
+
+        int[][] shapeS3 = {
+            {0, 0, 0},
+            {0, 1, 1},
+            {1, 1, 0}
+        };
+        tetraminoS.rotate();
+        assertArrayEquals(shapeS3, tetraminoS.getShapeMatrix());
+
+        int[][] shapeS4 = {
+            {1, 0, 0},
+            {1, 1, 0},
+            {0, 1, 0}
+        };
+        tetraminoS.rotate();
+        assertArrayEquals(shapeS4, tetraminoS.getShapeMatrix());
+
+        int[][] shapeZ2 = {
+            {0, 0, 1},
+            {0, 1, 1},
+            {0, 1, 0}
+        };
+        tetraminoZ.rotate();
+        assertArrayEquals(shapeZ2, tetraminoZ.getShapeMatrix());
+        
+        int[][] shapeZ3 = {
+            {0, 0, 0},
+            {1, 1, 0},
+            {0, 1, 1}
+        };
+        tetraminoZ.rotate();
+        assertArrayEquals(shapeZ3, tetraminoZ.getShapeMatrix());
+
+        int[][] shapeZ4 = {
+            {0, 1, 0},
+            {1, 1, 0},
+            {1, 0, 0}
+        };
+        tetraminoZ.rotate();
+        assertArrayEquals(shapeZ4, tetraminoZ.getShapeMatrix());
+
+        int[][] shapeJ2 = {
+            {0, 1, 1},
+            {0, 1, 0},
+            {0, 1, 0}
+        };
+        tetraminoJ.rotate();
+        assertArrayEquals(shapeJ2, tetraminoJ.getShapeMatrix());
+        int[][] shapeJ3 = {
+            {0, 0, 0},
+            {1, 1, 1},
+            {0, 0, 1}
+        };
+        tetraminoJ.rotate();
+        assertArrayEquals(shapeJ3, tetraminoJ.getShapeMatrix());
+        int[][] shapeJ4 = {
+            {0, 1, 0},
+            {0, 1, 0},
+            {1, 1, 0}
+        };
+        tetraminoJ.rotate();
+        assertArrayEquals(shapeJ4, tetraminoJ.getShapeMatrix());
+        int[][] shapeL2 = {
+            {0, 1, 0},
+            {0, 1, 0},
+            {0, 1, 1}
+        };
+        tetraminoL.rotate();
+        assertArrayEquals(shapeL2, tetraminoL.getShapeMatrix());
+        int[][] shapeL3 = {
+            {0, 0, 0},
+            {1, 1, 1},
+            {1, 0, 0}
+        };
+        tetraminoL.rotate();
+        assertArrayEquals(shapeL3, tetraminoL.getShapeMatrix());
+        int[][] shapeL4 = {
+            {1, 1, 0},
+            {0, 1, 0},
+            {0, 1, 0}
+        };
+        tetraminoL.rotate();
+        assertArrayEquals(shapeL4, tetraminoL.getShapeMatrix());
+        
+    }
 }

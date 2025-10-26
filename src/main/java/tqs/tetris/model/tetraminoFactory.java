@@ -8,18 +8,22 @@ public class tetraminoFactory {
     private Random random;
 
     public tetraminoFactory() {
+        this.random = new Random();
     }
 
     public tetraminoFactory(Random random) {
         this.random = random;
     }
 
-    private tetramino createRandomTetramino() {
+    public tetramino createRandomTetramino() {
         return null;
     }
 
-    private tetramino createTetramino(char shape, int color) {
-        return null;
+    public tetramino createTetramino(char shape, int color) {
+        assert(color >= 0 && color < COLOR_RANGE): "Invalid color: " + color;
+        assert(shape == 'I' || shape == 'O' || shape == 'T' || shape == 'S' ||
+               shape == 'Z' || shape == 'J' || shape == 'L'): "Invalid shape: " + shape;
+        return new tetramino(shape, color);
     }
 
     public void setRandom(Random random) {

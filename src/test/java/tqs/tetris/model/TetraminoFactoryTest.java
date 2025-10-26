@@ -1,4 +1,5 @@
 package tqs.tetris.model;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.Test;
 
@@ -10,14 +11,14 @@ public class TetraminoFactoryTest {
         assertNotNull(factory);
 
         // Trying to isolate the Random generator for better testing
-        mockRandomGenerator mockRandomGenerator = new mockRandomGenerator();
-        tetraminoFactrory factory2 = new tetraminoFactory(mockRandomGenerator);
+        mockRandom mockRandom = new mockRandom(1, 1);
+        tetraminoFactory factory2 = new tetraminoFactory(mockRandom);
         assertNotNull(factory2);
-        assertEquals(mockRandomGenerator, factory2.getRandomGenerator()); 
+        assertEquals(mockRandom, factory2.getRandom()); 
         
         // Test setter for generator.
-        mockRandomGenerator mockRandomGenerator2 = new mockRandomGenerator();
-        factory.setRandomGenerator(mockRandomGenerator2);
-        assertEquals(mockRandomGenerator2, factory.getRandomGenerator());
+        mockRandom mockRandom2 = new mockRandom(2, 2);
+        factory.setRandom(mockRandom2);
+        assertEquals(mockRandom2, factory.getRandom());
     }
 }

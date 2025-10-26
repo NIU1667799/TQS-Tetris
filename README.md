@@ -48,7 +48,7 @@ src/
  │    ├── Board.java
  │    ├── Tetromino.java ✔️
  │    ├── TetrominoFactory.java ✔️
- │    ├── GameState.java   (enum)
+ │    ├── GameState.java   (enum) ✔️
  │
  ├── view/
  │    ├── GamePanel.java

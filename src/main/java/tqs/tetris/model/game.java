@@ -1,17 +1,17 @@
 package tqs.tetris.model;
 
-public class game {
+public class Game {
     private board board;
     private tetraminoFactory tetraminoFactory;
     private gameState gameState;
 
-    public game() {
+    public Game() {
         this.board = new board();
         this.tetraminoFactory = new tetraminoFactory();
         this.gameState = new gameState();
     }
 
-    public game(board board, tetraminoFactory tetraminoFactory, gameState gameState) {
+    public Game(board board, tetraminoFactory tetraminoFactory, gameState gameState) {
         this.board = board;
         this.tetraminoFactory = tetraminoFactory;
         this.gameState = gameState;

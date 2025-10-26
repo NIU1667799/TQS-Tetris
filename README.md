@@ -41,13 +41,13 @@ A simple tetris game for a class project.
   - Controls piece falling speed and level progression
 
 # Proposed file structure
+```
 src/
  ├── model/
  │    ├── Game.java
  │    ├── Board.java
- │    ├── Tetromino.java
- │    ├── TetrominoFactory.java
- │    ├── Block.java
+ │    ├── Tetromino.java ✔️
+ │    ├── TetrominoFactory.java ✔️
  │    ├── GameState.java   (enum)
  │
  ├── view/
@@ -59,8 +59,7 @@ src/
  ├── controller/
  │    ├── GameController.java
  │    ├── InputHandler.java
-
-
+```
 # Breakdown by Layer
 - **Model (Game Logic)**
     - Game.java → Core game loop, orchestrates updates.

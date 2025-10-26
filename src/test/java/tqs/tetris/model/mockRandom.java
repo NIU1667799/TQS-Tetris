@@ -3,8 +3,8 @@ package tqs.tetris.model;
 import java.util.Random;
 
 public class mockRandom extends Random {
-    private int fixedShape;
-    private int fixedColor;
+    private final int fixedShape;
+    private final int fixedColor;
 
     public mockRandom(int shape, int color) {
         this.fixedShape = shape;

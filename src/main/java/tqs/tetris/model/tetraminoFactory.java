@@ -16,7 +16,9 @@ public class tetraminoFactory {
     }
 
     public tetramino createRandomTetramino() {
-        return null;
+        int shapeIndex = random.nextInt(SHAPES.length);
+        int color = random.nextInt(COLOR_RANGE);
+        return createTetramino(SHAPES[shapeIndex], color);
     }
 
     public tetramino createTetramino(char shape, int color) {

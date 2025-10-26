@@ -1,7 +1,7 @@
 package tqs.tetris.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
 
 public class TetraminoFactoryTest {
@@ -27,7 +27,7 @@ public class TetraminoFactoryTest {
     public void createTetraminoTest() {
         tetraminoFactory factory = new tetraminoFactory();
         tetramino I = factory.createTetramino('I', 0);
-        assertEquals("I", I.getShape());
+        assertEquals('I', I.getShape());
         assertEquals(0, I.getColor());
 
         // Pairwise done with: https://pairwise.teremokgames.com/
@@ -39,22 +39,15 @@ public class TetraminoFactoryTest {
          */
 
         tetramino O = factory.createTetramino('O', 3);
-        assertEquals("O", O.getShape());
+        assertEquals('O', O.getShape());
         assertEquals(3, O.getColor());
 
         tetramino T = factory.createTetramino('T', 5);
-        assertEquals("T", T.getShape());
+        assertEquals('T', T.getShape());
         assertEquals(5, T.getColor());
         // Invalid shape
-        try {
-            factory.createTetramino('X', 3);
-            assertTrue(false);
-        } catch (Exception e) { }
+        assertThrows(AssertionError.class, () -> factory.createTetramino('X', 3));
         // Invalid color
-        try {
-            factory.createTetramino('I', 6);
-            assertTrue(false);
-        } catch (Exception e) { }
-
+        assertThrows(AssertionError.class, () -> factory.createTetramino('I', 6));
     }
 }

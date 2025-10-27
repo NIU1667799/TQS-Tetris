@@ -3,15 +3,15 @@ package tqs.tetris.model;
 public class Game {
     private board board;
     private tetraminoFactory tetraminoFactory;
-    private gameState gameState;
+    private GameState gameState;
 
     public Game() {
         this.board = new board();
         this.tetraminoFactory = new tetraminoFactory();
-        this.gameState = new gameState();
+        this.gameState = GameState.RUNNING;
     }
 
-    public Game(board board, tetraminoFactory tetraminoFactory, gameState gameState) {
+    public Game(board board, tetraminoFactory tetraminoFactory, GameState gameState) {
         this.board = board;
         this.tetraminoFactory = tetraminoFactory;
         this.gameState = gameState;
@@ -33,11 +33,11 @@ public class Game {
         this.tetraminoFactory = tetraminoFactory;
     }
 
-    public gameState getGameState() {
+    public GameState getGameState() {
         return gameState;
     }
 
-    public void setGameState(gameState gameState) {
+    public void setGameState(GameState gameState) {
         this.gameState = gameState;
     }
 }

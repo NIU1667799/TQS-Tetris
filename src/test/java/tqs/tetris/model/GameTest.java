@@ -15,13 +15,13 @@ public class GameTest {
         game.setTetraminoFactory(mockFactory);
         assertEquals(mockFactory, game.getTetraminoFactory());
 
-        MockGameState mockState = new MockGameState();
-        game.setGameState(mockState);
-        assertEquals(mockState, game.getGameState());
+        MockGameState mockState = new MockGameState("RUNNING");
+        game.setGameState(mockState.getValue());
+        assertEquals(mockState.getValue(), game.getGameState());
 
-        Game game2 = new Game(mockBoard, mockFactory, mockState);
+        Game game2 = new Game(mockBoard, mockFactory, mockState.getValue());
         assertEquals(mockBoard, game2.getBoard());
         assertEquals(mockFactory, game2.getTetraminoFactory());
-        assertEquals(mockState, game2.getGameState());
+        assertEquals(mockState.getValue(), game2.getGameState());
     }
 }

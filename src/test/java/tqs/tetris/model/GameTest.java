@@ -15,6 +15,7 @@ public class GameTest {
         game.setTetraminoFactory(mockFactory);
         assertEquals(mockFactory, game.getTetraminoFactory());
 
+        // Can be RUNNING, PAUSED, or GAME_OVER
         MockGameState mockState = new MockGameState("RUNNING");
         game.setGameState(mockState.getValue());
         assertEquals(mockState.getValue(), game.getGameState());
@@ -23,5 +24,25 @@ public class GameTest {
         assertEquals(mockBoard, game2.getBoard());
         assertEquals(mockFactory, game2.getTetraminoFactory());
         assertEquals(mockState.getValue(), game2.getGameState());
+    }
+
+    @Test
+    public void gameStateTest() {
+        MockBoard mockBoard = new MockBoard( 10, 20);
+        MockTetraminoFactory mockFactory = new MockTetraminoFactory('I', 1);
+        MockGameState mockStateRunning = new MockGameState("RUNNING");
+        Game game = new Game(mockBoard, mockFactory, mockStateRunning.getValue());
+        assertEquals(mockStateRunning.getValue(), game.getGameState());
+
+        MockGameState mockStatePaused = new MockGameState("PAUSED");
+        game.pause();
+        assertEquals(mockStatePaused.getValue(), game.getGameState());
+
+        game.resume();
+        assertEquals(mockStateRunning.getValue(), game.getGameState());
+
+        MockGameState mockStateGameOver = new MockGameState("GAME_OVER");
+        game.gameOver();
+        assertEquals(mockStateGameOver.getValue(), game.getGameState());
     }
 }

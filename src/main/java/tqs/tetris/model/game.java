@@ -17,6 +17,18 @@ public class Game {
         this.gameState = gameState;
     }
 
+    public void resume(){
+        this.gameState = GameState.RUNNING;
+    }
+
+    public void pause(){
+        this.gameState = GameState.PAUSED;
+    }
+
+    public void gameOver(){
+        this.gameState = GameState.GAME_OVER;
+    }
+
     public board getBoard() {
         return board;
     }

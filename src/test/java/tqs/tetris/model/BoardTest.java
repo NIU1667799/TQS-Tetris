@@ -145,44 +145,50 @@ public class BoardTest {
         int H = board.getHeight();
 
         //colliding left wall, x<0
-        Tetromino t = new MockTetromino(-1,5,0,5,1,5,2,5);
+        Tetromino t = MockTetromino.of(TetrominoType.I,0);
+        t.setPosition(-1, 5);
         assertTrue(board.collides(t));
         //borde x = 0 no colisiona
-        Tetromino t1 = new MockTetromino(0,5,1,5,2,5,3,5);
+        Tetromino t1 = MockTetromino.of(TetrominoType.I, 0);
+        t1.setPosition(0, 5);
         assertFalse(board.collides(t1));
 
         //colliding right wall, x >= W
-        Tetromino t2 = new MockTetromino(W,10);
+        Tetromino t2 = MockTetromino.of(TetrominoType.I, 0);
+        t2.setPosition(W-3, 10);
         assertTrue(board.collides(t2));
         //x = W-1 no colisiona
-        Tetromino t22 = new MockTetromino(W-1,10);
+        Tetromino t22 = MockTetromino.of(TetrominoType.I, 90);
+        t22.setPosition(W-1, 3);
         assertFalse(board.collides(t22));
 
         //colliding bottom y<0
-        Tetromino t3 = new MockTetromino(3,-1);
+        Tetromino t3 = MockTetromino.of(TetrominoType.I, 90);
+        t3.setPosition(3, -1);
         assertTrue(board.collides(t3));
         //y=0 no colisiona
-        Tetromino t33 = new MockTetromino(3,0, 4,0, 5,0, 6,0);
+        Tetromino t33 = MockTetromino.of(TetrominoType.I, 0);
+        t33.setPosition(3, 0);
         assertFalse(board.collides(t33));
 
         //colliding top y >= H
-        Tetromino ttop = new MockTetromino(4,H);
+        Tetromino ttop = MockTetromino.of(TetrominoType.I, 90); 
+        ttop.setPosition(4, H-0);
         assertTrue(board.collides(ttop));
         //y = H-1 no colisiona
-        Tetromino ttop2 = new MockTetromino(4,H-1);
+        Tetromino ttop2 = MockTetromino.of(TetrominoType.I, 0);
+        ttop2.setPosition(4, H-1);
         assertFalse(board.collides(ttop2));
 
         //colliding with fixed blocks
         board.setCell(5,0, true);
-        Tetromino t4 = new MockTetromino(5,0);
+        Tetromino t4 = MockTetromino.of(TetrominoType.O, 0);
+        t4.setPosition(5,0);
         assertTrue(board.collides(t4));
         //not colliding
-        Tetromino t5 = new MockTetromino(3,3,4,3,5,3,6,3);
+        Tetromino t5 = MockTetromino.of(TetrominoType.O, 0);
+        t5.setPosition(6,1);
         assertFalse(board.collides(t5));
-
-        board.setCell(0, 0, true);
-        Tetromino t6 = new MockTetromino(-1,,0, 0,0);
-        assertTrue(board.collides(t6));
     }
 
     /**

@@ -2,10 +2,7 @@ package tqs.tetris.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.mock;
-
 import org.junit.jupiter.api.BeforeEach;
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import org.junit.jupiter.api.Test;
 
@@ -23,15 +20,18 @@ import org.junit.jupiter.api.Test;
         x=0   x=1   x=2   x=3   x=4
  */
 
-public interface Tetromino {
-    void setPosition(int x, int y);
-    int[][] getCells();
-}
+//helper for determine tetromino type
+enum TetrominoType {I, O, T, S, Z, J, L}
 
 class MockTetromino implements Tetromino {
     private final int[][] cells;
     private int posX;
     private int posY;
+
+    public MockTetromino() {
+        // Default shape: I horitzontal (0,0), (1,0), (2,0), (3,0)
+        this(new int[][]{{0,0},{1,0},{2,0},{3,0}});
+    }
 
     public MockTetromino(int[][] cells) {
         this.cells = cells;
@@ -55,6 +55,51 @@ class MockTetromino implements Tetromino {
         }
         return abs;
     }
+
+    //tetromino fabric
+    public static MockTetromino of(TetrominoType type, int rotationDeg) {
+        int r = ((rotationDeg % 360) + 360) % 360; // normaliza
+        int[][] rel;
+        switch (type) {
+            case I:
+                rel = (r == 0 || r == 180)
+                    ? new int[][]{{0,0},{1,0},{2,0},{3,0}}
+                    : new int[][]{{0,0},{0,1},{0,2},{0,3}};
+                break;
+            case O:
+                rel = new int[][]{{0,0},{1,0},{0,1},{1,1}};
+                break;
+            case T:
+                if (r == 0)      rel = new int[][]{{0,0},{1,0},{2,0},{1,1}};
+                else if (r==90)  rel = new int[][]{{1,0},{0,1},{1,1},{1,2}};
+                else if (r==180) rel = new int[][]{{1,0},{0,1},{1,1},{2,1}};
+                else             rel = new int[][]{{0,0},{0,1},{1,1},{0,2}};
+                break;
+            case S:
+                if (r == 0 || r == 180) rel = new int[][]{{1,0},{2,0},{0,1},{1,1}};
+                else                    rel = new int[][]{{0,0},{0,1},{1,1},{1,2}};
+                break;
+            case Z:
+                if (r == 0 || r == 180) rel = new int[][]{{0,0},{1,0},{1,1},{2,1}};
+                else                    rel = new int[][]{{1,0},{0,1},{1,1},{0,2}};
+                break;
+            case J:
+                if (r == 0)      rel = new int[][]{{0,0},{0,1},{1,1},{2,1}};
+                else if (r==90)  rel = new int[][]{{0,0},{1,0},{0,1},{0,2}};
+                else if (r==180) rel = new int[][]{{0,0},{1,0},{2,0},{2,1}};
+                else             rel = new int[][]{{1,0},{1,1},{1,2},{0,2}};
+                break;
+            case L:
+                if (r == 0)      rel = new int[][]{{2,0},{0,1},{1,1},{2,1}};
+                else if (r==90)  rel = new int[][]{{0,0},{0,1},{0,2},{1,2}};
+                else if (r==180) rel = new int[][]{{0,0},{1,0},{2,0},{0,1}};
+                else             rel = new int[][]{{0,0},{1,0},{1,1},{1,2}};
+                break;
+            default:
+                throw new IllegalArgumentException("Tipo no soportado");
+        }
+    return new MockTetromino(rel);
+}
 }
 
 public class BoardTest {
@@ -85,7 +130,7 @@ public class BoardTest {
     /** MOCKING tetromino object */
     @Test
     void boardPlaceTetromino() {
-        Tetromino tetromino = new Tetromino(TetrominoType.I);
+        Tetromino tetromino = new MockTetromino();
         tetromino.setPosition(4, 0); // Place at the top center
         board.placeTetromino(tetromino);
         //should be ocupied
@@ -100,43 +145,43 @@ public class BoardTest {
         int H = board.getHeight();
 
         //colliding left wall, x<0
-        Tetromino t = mockTetromino(-1,5,0,5,1,5,2,5);
+        Tetromino t = new MockTetromino(-1,5,0,5,1,5,2,5);
         assertTrue(board.collides(t));
         //borde x = 0 no colisiona
-        Tetromino t1 = mockTetromino(0,5,1,5,2,5,3,5);
+        Tetromino t1 = new MockTetromino(0,5,1,5,2,5,3,5);
         assertFalse(board.collides(t1));
 
         //colliding right wall, x >= W
-        Tetromino t2 = mockTetromino(W,10);
+        Tetromino t2 = new MockTetromino(W,10);
         assertTrue(board.collides(t2));
         //x = W-1 no colisiona
-        Tetromino t22 = mockTetromino(W-1,10);
+        Tetromino t22 = new MockTetromino(W-1,10);
         assertFalse(board.collides(t22));
 
         //colliding bottom y<0
-        Tetromino t3 = mockTetromino(3,-1);
+        Tetromino t3 = new MockTetromino(3,-1);
         assertTrue(board.collides(t3));
         //y=0 no colisiona
-        Tetromino t33 = mockTetromino(3,0, 4,0, 5,0, 6,0);
+        Tetromino t33 = new MockTetromino(3,0, 4,0, 5,0, 6,0);
         assertFalse(board.collides(t33));
 
         //colliding top y >= H
-        Tetromino ttop = mockTetromino(4,H);
+        Tetromino ttop = new MockTetromino(4,H);
         assertTrue(board.collides(ttop));
         //y = H-1 no colisiona
-        Tetromino ttop2 = mockTetromino(4,H-1);
+        Tetromino ttop2 = new MockTetromino(4,H-1);
         assertFalse(board.collides(ttop2));
 
         //colliding with fixed blocks
         board.setCell(5,0, true);
-        Tetromino t4 = mockTetromino(5,0);
+        Tetromino t4 = new MockTetromino(5,0);
         assertTrue(board.collides(t4));
         //not colliding
-        Tetromino t5 = mockTetromino(3,3,4,3,5,3,6,3);
+        Tetromino t5 = new MockTetromino(3,3,4,3,5,3,6,3);
         assertFalse(board.collides(t5));
 
         board.setCell(0, 0, true);
-        Tetromino t6 = mockTetromino(-1,,0, 0,0);
+        Tetromino t6 = new MockTetromino(-1,,0, 0,0);
         assertTrue(board.collides(t6));
     }
 

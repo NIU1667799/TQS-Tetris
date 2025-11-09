@@ -99,7 +99,7 @@ class MockTetromino implements Tetromino {
                 throw new IllegalArgumentException("Tipo no soportado");
         }
     return new MockTetromino(rel);
-}
+    }
 }
 
 public class BoardTest {
@@ -127,75 +127,156 @@ public class BoardTest {
         }
     }
 
-    /** MOCKING tetromino object */
-    @Test
-    void boardPlaceTetromino() {
-        Tetromino tetromino = new MockTetromino();
-        tetromino.setPosition(4, 0); // Place at the top center
-        board.placeTetromino(tetromino);
-        //should be ocupied
-        for(int x = 4; x < 8; x++) {
-            assertFalse(board.isEmpty(x, 0));
-        }
-    }
+    /**
+     * In this test, we will place different tetrominoes on the same board and test diferent collision cases
+     * declare a tetromino mockobject and starts falling down until reaching to the bottom or collides with another tetromino
+     */
 
     @Test
-    void testCollides() {
+    void testColides(){
         int W = board.getWidth();
         int H = board.getHeight();
 
-        //colliding left wall, x<0
-        Tetromino t = MockTetromino.of(TetrominoType.I,0);
-        t.setPosition(-1, 5);
-        assertTrue(board.collides(t));
-        //borde x = 0 no colisiona
-        Tetromino t1 = MockTetromino.of(TetrominoType.I, 0);
-        t1.setPosition(0, 5);
-        assertFalse(board.collides(t1));
+        //O shape in the center of the board
+        Tetromino oCenter = MockTetromino.of(TetrominoType.O, 0);
+        int ox = W/2;
+        int oy = H/2;
+        oCenter.setPosition(ox, oy);
+        while(!board.collides(oCenter)) {
+            oCenter.setPosition(ox, oy--); //falling down
+        }
 
-        //colliding right wall, x >= W
-        Tetromino t2 = MockTetromino.of(TetrominoType.I, 0);
-        t2.setPosition(W-3, 10);
-        assertTrue(board.collides(t2));
-        //x = W-1 no colisiona
-        Tetromino t22 = MockTetromino.of(TetrominoType.I, 90);
-        t22.setPosition(W-1, 3);
-        assertFalse(board.collides(t22));
+        oy = oy +1; //last non colliding
+        oCenter.setPosition(ox, oy);
+        board.placeTetromino(oCenter);
 
-        //colliding bottom y<0
-        Tetromino t3 = MockTetromino.of(TetrominoType.I, 90);
-        t3.setPosition(3, -1);
-        assertTrue(board.collides(t3));
-        //y=0 no colisiona
-        Tetromino t33 = MockTetromino.of(TetrominoType.I, 0);
-        t33.setPosition(3, 0);
-        assertFalse(board.collides(t33));
+        //verify that O shape tetromino cells are occupied
+        assertFalse(board.isEmpty(ox,0));
+        assertFalse(board.isEmpty(ox+1,0));
+        assertFalse(board.isEmpty(ox,1));
+        assertFalse(board.isEmpty(ox+1,1));
 
-        //colliding top y >= H
-        Tetromino ttop = MockTetromino.of(TetrominoType.I, 90); 
-        ttop.setPosition(4, H-0);
-        assertTrue(board.collides(ttop));
-        //y = H-1 no colisiona
-        Tetromino ttop2 = MockTetromino.of(TetrominoType.I, 0);
-        ttop2.setPosition(4, H-1);
-        assertFalse(board.collides(ttop2));
+        //I shape vertical colliding with O shape, should stop on top of O shape
+        Tetromino iVertical = MockTetromino.of(TetrominoType.I, 90);
+        int ix = ox; //same column as O shape
+        int iy = H-1;
+        iVertical.setPosition(ix, iy);
+        while(!board.collides(iVertical)) {
+            iVertical.setPosition(ix, iy--);
+        }
+        iy = iy +1; //last non colliding
+        iVertical.setPosition(ix, iy);
+        board.placeTetromino(iVertical);
+        assertFalse(board.isEmpty(ix, 2));
+        assertFalse(board.isEmpty(ix, 3));
+        assertFalse(board.isEmpty(ix, 4));
+        assertFalse(board.isEmpty(ix, 5));
 
-        //colliding with fixed blocks
-        board.setCell(5,0, true);
-        Tetromino t4 = MockTetromino.of(TetrominoType.O, 0);
-        t4.setPosition(5,0);
-        assertTrue(board.collides(t4));
-        //not colliding
-        Tetromino t5 = MockTetromino.of(TetrominoType.O, 0);
-        t5.setPosition(6,1);
-        assertFalse(board.collides(t5));
+        Tetromino o2 = MockTetromino.of(TetrominoType.O, 0);
+        int ox2 = ox;
+        int oy2 = H-2;
+        o2.setPosition(ox2, oy2); //same column as I shape
+        assertTrue(board.collides(o2));
+
+        while (!board.collides(o2)) {
+            oy2 = oy2 - 1;
+            o2.setPosition(ox2, oy2);
+        }
+        oy2 = oy2 + 1;
+        o2.setPosition(ox2, oy2);
+        board.placeTetromino(o2);
+
+        assertFalse(board.isEmpty(ox2,   6));
+        assertFalse(board.isEmpty(ox2+1, 6));
+        assertFalse(board.isEmpty(ox2,   7));
+        assertFalse(board.isEmpty(ox2+1, 7));
+
+        Tetromino z1 = MockTetromino.of(TetrominoType.Z, 0);
+        z1.setPosition(ix-1, 2);
+        assertTrue(board.collides(z1));
+
+        Tetromino z2 = MockTetromino.of(TetrominoType.Z, 0);
+        int zx = Math.max(0,ix-3);
+        int zy = H-2;
+        z2.setPosition(zx, zy);
+        while(!board.collides(z2)) {
+            zy = zy - 1;
+            z2.setPosition(zx, zy);
+        }
+        zy = zy + 1;
+        z2.setPosition(zx, zy);
+        board.placeTetromino(z2);
+        // Debe haber ocupado suelo/altura baja en el lado izquierdo
+        assertFalse(board.isEmpty(zx,   0));
+        assertFalse(board.isEmpty(zx+1, 0));
+        assertFalse(board.isEmpty(zx+1, 1));
+        assertFalse(board.isEmpty(zx+2, 1));
+
+        Tetromino s1 = MockTetromino.of(TetrominoType.S, 0);
+        int sx = Math.min(W-3, ix+3);
+        int sy = H-2;
+        s1.setPosition(sx, sy);
+        while(!board.collides(s1)) {
+            sy = sy - 1;
+            s1.setPosition(sx, sy);
+        }
+        sy = sy + 1;
+        s1.setPosition(sx, sy);
+        board.placeTetromino(s1);
+        // Debe haber ocupado suelo/altura baja en el lado derecho
+        assertFalse(board.isEmpty(sx+1, 0));
+        assertFalse(board.isEmpty(sx+2, 0));
+        assertFalse(board.isEmpty(sx,   1));
+        assertFalse(board.isEmpty(sx+1, 1));
+
+        Tetromino j1 = MockTetromino.of(TetrominoType.J, 90);
+        int jx = Math.max(0, zx-1);
+        int jy = H-3;
+        j1.setPosition(jx, jy);
+        while(!board.collides(j1)) {
+            jy = jy - 1;
+            j1.setPosition(jx, jy);
+        }
+        jy = jy + 1;
+        j1.setPosition(jx, jy);
+        board.placeTetromino(j1);
+        assertFalse(board.isEmpty(jx,Math.max(2, jy)));
+        assertFalse(board.isEmpty(jx,Math.max(3, jy)));
+
+        //colocar una de forma I en x=0
+        Tetromino i2 = MockTetromino.of(TetrominoType.I, 90); //vertical
+        int i2x = 0;
+        int i2y = H-4;
+        i2.setPosition(i2x, i2y);
+        while(!board.collides(i2)) {
+            i2y = i2y - 1;
+            i2.setPosition(i2x, i2y);
+        }
+        i2y = i2y + 1;
+        i2.setPosition(i2x, i2y);
+        board.placeTetromino(i2);
+        assertFalse(board.isEmpty(0,0));
+        assertFalse(board.isEmpty(0, 1));
+        assertFalse(board.isEmpty(0, 2));
+        assertFalse(board.isEmpty(0, 3));
+
+        //Z vertical para colisionar con la S de la derecha
+        Tetromino z3 = MockTetromino.of(TetrominoType.Z, 90);
+        int z3x = 8;
+        int z3y = H-3;
+        z3.setPosition(z3x, z3y);
+        while(!board.collides(z3)) {
+            z3y = z3y - 1;
+            z3.setPosition(z3x, z3y);
+        }
+        assertTrue(board.collides(z3));
     }
 
     /**
      * comprobar de todo el board, si hay alguna fila completa
      */
     @Test
-    void clearLines() {
+    void testClearLines() {
         // fill the bottom row (y=0)
         for (int x = 0; x < board.getWidth(); x++) {
             board.setCell(x, 0, true);

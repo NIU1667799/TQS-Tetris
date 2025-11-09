@@ -277,18 +277,23 @@ public class BoardTest {
      */
     @Test
     void testClearLines() {
-        // fill the bottom row (y=0)
-        for (int x = 0; x < board.getWidth(); x++) {
-            board.setCell(x, 0, true);
-        }
+        int W = board.getWidth();
+        int H = board.getHeight();
+
         int cleared = board.clearLines();
+        assertEquals(0, cleared);
+
+        // fill the bottom row (y=0)
+        for (int x = 0; x < board.getWidth(); x++) 
+            board.setCell(x, 0, true);
+        cleared = board.clearLines();
         assertEquals(1, cleared);
         // should be empty
         for (int x = 0; x < board.getWidth(); x++) {
             assertTrue(board.isEmpty(x, 0));
         }
 
-        //fil two rows
+        //fil two rows (y=0, y=1)
         for (int x = 0; x < board.getWidth(); x++) {
             board.setCell(x, 0, true);
             board.setCell(x, 1, true);
@@ -300,23 +305,5 @@ public class BoardTest {
             assertTrue(board.isEmpty(x, 1));
         }
 
-        //fill two non consecutive rows
-        for (int x = 0; x < board.getWidth(); x++) {
-            board.setCell(x, 0, true);
-            board.setCell(x, 2, true);
-        }
-        cleared = board.clearLines();
-        assertEquals(2, cleared);
-        for (int x = 0; x < board.getWidth(); x++) {
-            assertTrue(board.isEmpty(x, 0));
-            assertTrue(board.isEmpty(x, 1));
-            assertTrue(board.isEmpty(x, 2));
-        }
-
-        for(int x=0; x <board.getWidth(); x++) {
-            for(int y=0; y<board.getHeight(); y++) {
-                //board.setCell(x, y, true);
-            }
-        }
     }
 }

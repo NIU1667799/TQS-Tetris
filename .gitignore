@@ -1,0 +1,13 @@
+# Maven build directory
+target/
+
+# IDE settings
+.idea/
+*.iml
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db

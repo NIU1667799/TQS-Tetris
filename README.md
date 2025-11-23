@@ -20,8 +20,6 @@ A simple tetris game for a class project.
 - **Block**
   - Smallest unit (a single square)
   - Stores color and position relative to the board
-- **Score**
-  - Tracks points, lines cleared, and level progression
 - **GameState** (enum/class)
   - Defines states like `RUNNING`, `PAUSED`, `GAME_OVER`
 
@@ -43,15 +41,14 @@ A simple tetris game for a class project.
   - Controls piece falling speed and level progression
 
 # Proposed file structure
+```
 src/
  ├── model/
  │    ├── Game.java
  │    ├── Board.java
- │    ├── Tetromino.java
- │    ├── TetrominoFactory.java
- │    ├── Block.java
- │    ├── Score.java
- │    ├── GameState.java   (enum)
+ │    ├── Tetromino.java ✔️
+ │    ├── TetrominoFactory.java ✔️
+ │    ├── GameState.java   (enum) ✔️
  │
  ├── view/
  │    ├── GamePanel.java
@@ -62,8 +59,7 @@ src/
  ├── controller/
  │    ├── GameController.java
  │    ├── InputHandler.java
-
-
+```
 # Breakdown by Layer
 - **Model (Game Logic)**
     - Game.java → Core game loop, orchestrates updates.
@@ -71,7 +67,6 @@ src/
     - Tetromino.java → Represents a piece (rotation, movement).
     - TetrominoFactory.java → Creates random tetrominoes.
     - Block.java → Smallest unit (color + position).
-    - Score.java → Tracks points, lines, levels.
     - GameState.java → Enum for RUNNING, PAUSED, GAME_OVER.
 
 - **View (UI/Rendering)**

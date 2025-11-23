@@ -1,9 +1,15 @@
 package tqs.tetris.model;
+import java.util.ArrayList;
+import java.util.List;
 
-public class tetramino {
+public class Tetromino {
     private char shape;
     private int color;
     private int rotation = 0;
+
+    //board position
+    private int x = 0;
+    private int y = 0;
 
     // First matrix is rotation 0, 
     // Second is rotation 1, etc.
@@ -74,11 +80,40 @@ public class tetramino {
         }
     };
 
-    public tetramino(char shape, int color) {
+    public Tetromino(char shape, int color) {
         this.shape = shape;
         this.color = color;
     }
     
+    public void setPosition(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public int[][] getCells() {
+        int[][] matrix = getShapeMatrix();
+        List<int[]> occupied = new ArrayList<>();
+
+        int h = matrix.length;
+
+        for(int row = 0; row < h ; row++) {
+            for(int col = 0; col < matrix[row].length; col++){
+                if(matrix[row][col] == 1){
+                    int X = this.x+col;
+                    int Y=this.y+(h-1-row);
+                    occupied.add(new int[]{X,Y});
+                }
+            }
+        }
+
+        //convert the array list to int[][]
+        int[][] cells = new int[occupied.size()][2];
+        for(int i=0;i<occupied.size();i++){
+            cells[i]=occupied.get(i);
+        }
+        return cells;
+    }
+
     public char getShape() {
         return shape;
     }
@@ -106,16 +141,16 @@ public class tetramino {
     }
 
     private int getShapeIndex() {
-        return switch (shape) {
-            case 'I' -> 0;
-            case 'O' -> 1;
-            case 'T' -> 2;
-            case 'S' -> 3;
-            case 'Z' -> 4;
-            case 'J' -> 5;
-            case 'L' -> 6;
-            default -> 0;
-        };
+        switch (shape) {
+            case 'I': return 0;
+            case 'O': return 1;
+            case 'T': return 2;
+            case 'S': return 3;
+            case 'Z': return 4;
+            case 'J': return 5;
+            case 'L': return 6;
+            default: return 0;
+        }
     }
 
     public int[][] getShapeMatrix() {

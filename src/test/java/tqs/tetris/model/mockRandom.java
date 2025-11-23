@@ -2,11 +2,11 @@ package tqs.tetris.model;
 
 import java.util.Random;
 
-public class mockRandom extends Random {
+public class MockRandom extends Random {
     private int fixedShape;
     private int fixedColor;
 
-    public mockRandom(int shape, int color) {
+    public MockRandom(int shape, int color) {
         this.fixedShape = shape;
         this.fixedColor = color;
     }

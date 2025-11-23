@@ -11,29 +11,29 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
 
-public class TetraminoFactoryTest {
+public class TetrominoFactoryTest {
 
     @Test
     public void tetraminoFactoryConstructionTest() {
-        tetraminoFactory factory = new tetraminoFactory();
+        TetrominoFactory factory = new TetrominoFactory();
         assertNotNull(factory);
 
         // Trying to isolate the Random generator for better testing
-        mockRandom mockRandom = new mockRandom(1, 1);
-        tetraminoFactory factory2 = new tetraminoFactory(mockRandom);
+        MockRandom mockRandom = new MockRandom(1, 1);
+        TetrominoFactory factory2 = new TetrominoFactory(mockRandom);
         assertNotNull(factory2);
         assertEquals(mockRandom, factory2.getRandom());
 
         // Test setter for generator.
-        mockRandom mockRandom2 = new mockRandom(2, 2);
+        MockRandom mockRandom2 = new MockRandom(2, 2);
         factory.setRandom(mockRandom2);
         assertEquals(mockRandom2, factory.getRandom());
     }
 
     @Test
     public void createTetraminoTest() {
-        tetraminoFactory factory = new tetraminoFactory();
-        tetramino I = factory.createTetramino('I', 0);
+        TetrominoFactory factory = new TetrominoFactory();
+        Tetromino I = factory.createTetramino('I', 0);
         assertEquals('I', I.getShape());
         assertEquals(0, I.getColor());
 
@@ -44,11 +44,11 @@ public class TetraminoFactoryTest {
          * Sense these values don't interact with each other and they are already teste in
          * tetraminoTest, we will just test a subset of the combinations here.
          */
-        tetramino O = factory.createTetramino('O', 3);
+        Tetromino O = factory.createTetramino('O', 3);
         assertEquals('O', O.getShape());
         assertEquals(3, O.getColor());
 
-        tetramino T = factory.createTetramino('T', 5);
+        Tetromino T = factory.createTetramino('T', 5);
         assertEquals('T', T.getShape());
         assertEquals(5, T.getColor());
         // Invalid shape
@@ -73,9 +73,9 @@ public class TetraminoFactoryTest {
                 char expectedShape = parts[0].charAt(0);
                 int expectedColor = Integer.parseInt(parts[1]);
                 int shapeIndex = shapeToIndex(expectedShape);
-                mockRandom mock = new mockRandom(shapeIndex, expectedColor);
-                tetraminoFactory factory = new tetraminoFactory(mock);
-                tetramino tet = factory.createRandomTetramino();
+                MockRandom mock = new MockRandom(shapeIndex, expectedColor);
+                TetrominoFactory factory = new TetrominoFactory(mock);
+                Tetromino tet = factory.createRandomTetramino();
                 assertEquals(expectedShape, tet.getShape());
                 assertEquals(expectedColor, tet.getColor());
             }
@@ -86,15 +86,15 @@ public class TetraminoFactoryTest {
     }
 
     private int shapeToIndex(char shape) {
-        return switch (shape) {
-            case 'I' -> 0;
-            case 'O' -> 1;
-            case 'T' -> 2;
-            case 'S' -> 3;
-            case 'Z' -> 4;
-            case 'J' -> 5;
-            case 'L' -> 6;
-            default -> throw new IllegalArgumentException("Unknown shape: " + shape);
-        };
+        switch (shape) {
+            case 'I': return 0;
+            case 'O': return 1;
+            case 'T': return 2;
+            case 'S': return 3;
+            case 'Z': return 4;
+            case 'J': return 5;
+            case 'L': return 6;
+            default: throw new IllegalArgumentException("Unknown shape: " + shape);
+        }
     }
 }

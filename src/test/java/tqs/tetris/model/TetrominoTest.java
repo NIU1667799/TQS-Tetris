@@ -29,48 +29,48 @@ public class TetrominoTest {
         */
 
         // Test valid color values
-        tetramino tetromino0 = new tetramino('T', 0);
+        Tetromino tetromino0 = new Tetromino('T', 0);
         assertEquals(0, tetromino0.getColor());
 
-        tetramino tetromino1 = new tetramino('T', 1);
+        Tetromino tetromino1 = new Tetromino('T', 1);
         assertEquals(1, tetromino1.getColor());
         
-        tetramino tetromino3 = new tetramino('T', 3);
+        Tetromino tetromino3 = new Tetromino('T', 3);
         assertEquals(3, tetromino3.getColor()); 
         
-        tetramino tetromino4 = new tetramino('T', 4);
+        Tetromino tetromino4 = new Tetromino('T', 4);
         assertEquals(4, tetromino4.getColor());
         
-        tetramino tetromino5 = new tetramino('T', 5);
+        Tetromino tetromino5 = new Tetromino('T', 5);
         assertEquals(5, tetromino5.getColor());
 
         // Test valid shapes
-        tetramino tetrominoI = new tetramino('I', 0);
+        Tetromino tetrominoI = new Tetromino('I', 0);
         assertEquals('I', tetrominoI.getShape());
         
-        tetramino tetrominoO = new tetramino('O', 0);
+        Tetromino tetrominoO = new Tetromino('O', 0);
         assertEquals('O', tetrominoO.getShape());
         
-        tetramino tetrominoT = new tetramino('T', 0);
+        Tetromino tetrominoT = new Tetromino('T', 0);
         assertEquals('T', tetrominoT.getShape());
         
-        tetramino tetrominoS = new tetramino('S', 0);
+        Tetromino tetrominoS = new Tetromino('S', 0);
         assertEquals('S', tetrominoS.getShape());
         
-        tetramino tetrominoZ = new tetramino('Z', 0);
+        Tetromino tetrominoZ = new Tetromino('Z', 0);
         assertEquals('Z', tetrominoZ.getShape());
         
-        tetramino tetrominoJ = new tetramino('J', 0);
+        Tetromino tetrominoJ = new Tetromino('J', 0);
         assertEquals('J', tetrominoJ.getShape());
         
-        tetramino tetrominoL = new tetramino('L', 0);
+        Tetromino tetrominoL = new Tetromino('L', 0);
         assertEquals('L', tetrominoL.getShape());
 
     }
 
     @Test
     public void testTetrominoSettersAndGetters() {
-        tetramino tetramino = new tetramino('I', 0);
+        Tetromino tetramino = new Tetromino('I', 0);
         
         // Test shape setters and getters
         tetramino.setShape('I');
@@ -114,7 +114,7 @@ public class TetrominoTest {
          *  2 -> 180 degrees
          *  3 -> 270 degrees
          */
-        tetramino tetramino = new tetramino('I', 0);
+        Tetromino tetramino = new Tetromino('I', 0);
         assertEquals(0, tetramino.getRotation());
         tetramino.rotate();
         assertEquals(1, tetramino.getRotation());
@@ -130,13 +130,13 @@ public class TetrominoTest {
     public void testMatrixShape(){
         // Test to see if each Tetramino returns it's correct matrix shape
         // shapes -> 'I', 'O', 'T', 'S', 'Z', 'J', 'L'
-        tetramino tetraminoI = new tetramino('I', 0);
-        tetramino tetraminoO = new tetramino('O', 1);
-        tetramino tetraminoT = new tetramino('T', 2);
-        tetramino tetraminoS = new tetramino('S', 3);
-        tetramino tetraminoZ = new tetramino('Z', 4);
-        tetramino tetraminoJ = new tetramino('J', 5);
-        tetramino tetraminoL = new tetramino('L', 6);
+        Tetromino tetraminoI = new Tetromino('I', 0);
+        Tetromino tetraminoO = new Tetromino('O', 1);
+        Tetromino tetraminoT = new Tetromino('T', 2);
+        Tetromino tetraminoS = new Tetromino('S', 3);
+        Tetromino tetraminoZ = new Tetromino('Z', 4);
+        Tetromino tetraminoJ = new Tetromino('J', 5);
+        Tetromino tetraminoL = new Tetromino('L', 6);
         
         int[][] shapeI = {
             {0, 0, 0, 0},

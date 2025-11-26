@@ -292,4 +292,20 @@ public class BoardTest {
             assertTrue(board.isEmpty(x, 1));
         }
     }
+
+    /**
+     * This test will check the limit cases for line clearing
+     * test the top row
+     */
+    @Test
+    void testClearLinesBoundary() {
+        int topRow = board.getHeight()-1;
+        for(int i = 0; i < board.getWidth();i++){
+            board.setCell(i, topRow, true);
+        }
+        assertFalse(board.isEmpty(0, topRow));
+        int cleared = board.clearLines();
+        assertEquals(1, cleared);
+        assertTrue(board.isEmpty(0, topRow));
+    }
 }

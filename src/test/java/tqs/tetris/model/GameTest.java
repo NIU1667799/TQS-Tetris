@@ -7,29 +7,28 @@ public class GameTest {
     @Test
     public void gameConstructionTest() {
         Game game = new Game();
-        MockBoard mockBoard = new MockBoard( 10, 20);
+        MockBoard mockBoard = new MockBoard(10, 20);
         game.setBoard(mockBoard);
         assertEquals(mockBoard, game.getBoard());
 
-        MockTetraminoFactory mockFactory = new MockTetraminoFactory('I', 1);
-        game.setTetraminoFactory(mockFactory);
-        assertEquals(mockFactory, game.getTetraminoFactory());
+        MockTetrominoFactory mockFactory = new MockTetrominoFactory('I', 1);
+        game.setTetrominoFactory(mockFactory);
+        assertEquals(mockFactory, game.getTetrominoFactory());
 
         // Can be RUNNING, PAUSED, or GAME_OVER
-        MockGameState mockState = new MockGameState("RUNNING");
-        game.setGameState(mockState.getValue());
-        assertEquals(mockState.getValue(), game.getGameState());
+        game.setGameState(GameState.RUNNING);
+        assertEquals(GameState.RUNNING, game.getGameState());
 
-        Game game2 = new Game(mockBoard, mockFactory, mockState.getValue());
+        Game game2 = new Game(mockBoard, mockFactory, GameState.RUNNING);
         assertEquals(mockBoard, game2.getBoard());
-        assertEquals(mockFactory, game2.getTetraminoFactory());
-        assertEquals(mockState.getValue(), game2.getGameState());
+        assertEquals(mockFactory, game2.getTetrominoFactory());
+        assertEquals(GameState.RUNNING, game2.getGameState());
     }
 
     @Test
     public void gameStateTest() {
-        MockBoard mockBoard = new MockBoard( 10, 20);
-        MockTetraminoFactory mockFactory = new MockTetraminoFactory('I', 1);
+        MockBoard mockBoard = new MockBoard(10, 20);
+        MockTetrominoFactory mockFactory = new MockTetrominoFactory('I', 1); // ✅ fixed spelling
         MockGameState mockStateRunning = new MockGameState("RUNNING");
         Game game = new Game(mockBoard, mockFactory, mockStateRunning.getValue());
         assertEquals(mockStateRunning.getValue(), game.getGameState());

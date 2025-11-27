@@ -1,19 +1,19 @@
 package tqs.tetris.model;
 
 public class Game {
-    private board board;
-    private tetraminoFactory tetraminoFactory;
+    Board board;
+    private TetrominoFactory tetrominoFactory;
     private GameState gameState;
 
     public Game() {
-        this.board = new board();
-        this.tetraminoFactory = new tetraminoFactory();
+        this.board = new Board(10, 20);
+        this.tetrominoFactory = new TetrominoFactory();
         this.gameState = GameState.RUNNING;
     }
 
-    public Game(board board, tetraminoFactory tetraminoFactory, GameState gameState) {
+    public Game(Board board, TetrominoFactory tetrominoFactory, GameState gameState) {
         this.board = board;
-        this.tetraminoFactory = tetraminoFactory;
+        this.tetrominoFactory = tetrominoFactory;
         this.gameState = gameState;
     }
 
@@ -29,20 +29,20 @@ public class Game {
         this.gameState = GameState.GAME_OVER;
     }
 
-    public board getBoard() {
+    public Board getBoard() {
         return board;
     }
 
-    public void setBoard(board board) {
+    public void setBoard(Board board) {
         this.board = board;
     }
 
-    public tetraminoFactory getTetraminoFactory() {
-        return tetraminoFactory;
+    public TetrominoFactory getTetrominoFactory() {
+        return tetrominoFactory;
     }
 
-    public void setTetraminoFactory(tetraminoFactory tetraminoFactory) {
-        this.tetraminoFactory = tetraminoFactory;
+    public void setTetrominoFactory(TetrominoFactory tetrominoFactory) {
+        this.tetrominoFactory = tetrominoFactory;
     }
 
     public GameState getGameState() {

@@ -157,4 +157,12 @@ public class Tetromino {
         return SHAPES[getShapeIndex()][rotation];
     }
 
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
 }

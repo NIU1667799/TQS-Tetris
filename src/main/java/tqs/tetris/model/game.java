@@ -13,6 +13,13 @@ public class Game {
         spawnNewPiece();
     }
 
+    public Game(Board board, TetrominoFactory tetrominoFactory, GameState gameState) {
+        this.board = board;
+        this.tetrominoFactory = tetrominoFactory;
+        this.gameState = gameState;
+        spawnNewPiece();
+    }
+
     private void spawnNewPiece() {
         current = tetrominoFactory.createRandomTetramino();
         current.setPosition(board.getWidth() / 2 - 1, board.getHeight() - 1);
@@ -21,11 +28,20 @@ public class Game {
         }
     }
 
-    public Game(Board board, TetrominoFactory tetrominoFactory, GameState gameState) {
-        this.board = board;
-        this.tetrominoFactory = tetrominoFactory;
-        this.gameState = gameState;
-        spawnNewPiece();
+    public void tick() {
+        if (!gameState.isPlayable()) {
+            return;
+        }
+
+        // Move current piece down by 1
+        current.setPosition(current.getX(), current.getY() - 1);
+
+        if (board.collides(current)) {
+            current.setPosition(current.getX(), current.getY() + 1);
+            board.placeTetromino(current);
+            board.clearLines();
+            spawnNewPiece();
+        }
     }
 
     public void resume(){

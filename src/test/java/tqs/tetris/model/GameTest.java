@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 public class GameTest {
+
     @Test
     public void gameConstructionTest() {
         Game game = new Game();
@@ -53,5 +54,18 @@ public class GameTest {
 
         assertEquals(10 / 2 - 1, current.getX());
         assertEquals(20 - 1, current.getY());
+
+        Game gameO = new Game(mockBoard, new MockTetrominoFactory('O', 3), GameState.RUNNING);
+        Tetromino currentO = gameO.getCurrent();
+        assertEquals('O', currentO.getShape());
+        assertEquals(3, currentO.getColor());
+        
+        // Positioning for different board sizes
+        MockBoard smallBoard = new MockBoard(8, 16);
+        Game smallGame = new Game(smallBoard, new MockTetrominoFactory('I', 1), GameState.RUNNING);
+        Tetromino smallCurrent = smallGame.getCurrent();
+        assertEquals(8 / 2 - 1, smallCurrent.getX());
+        assertEquals(16 - 1, smallCurrent.getY());
+        
     }
 }

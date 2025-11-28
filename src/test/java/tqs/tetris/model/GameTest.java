@@ -1,6 +1,7 @@
 package tqs.tetris.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.Test;
 
@@ -123,5 +124,16 @@ public class GameTest {
 
     }
 
+    @Test
+    public void rotationTest() {
+        MockBoard mockBoard = new MockBoard(10, 20);
+        Game game = new Game(mockBoard, new MockTetrominoFactory('I', 1), GameState.RUNNING);
+
+        Tetromino current = game.getCurrent();
+        int initialRotation = current.getRotation();
+
+        game.rotateCurrent();
+        assertNotEquals(initialRotation, current.getRotation(), "Piece should rotate when no collision");
+    }
 
 }

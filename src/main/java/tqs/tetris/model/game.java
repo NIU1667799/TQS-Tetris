@@ -4,11 +4,21 @@ public class Game {
     Board board;
     private TetrominoFactory tetrominoFactory;
     private GameState gameState;
+    private Tetromino current;
 
     public Game() {
         this.board = new Board(10, 20);
         this.tetrominoFactory = new TetrominoFactory();
         this.gameState = GameState.RUNNING;
+        spawnNewPiece();
+    }
+
+    private void spawnNewPiece() {
+        current = tetrominoFactory.createRandomTetramino();
+        current.setPosition(board.getWidth() / 2 - 1, board.getHeight() - 1);
+        if (board.collides(current)) {
+            gameState = GameState.GAME_OVER;
+        }
     }
 
     public Game(Board board, TetrominoFactory tetrominoFactory, GameState gameState) {
@@ -51,5 +61,9 @@ public class Game {
 
     public void setGameState(GameState gameState) {
         this.gameState = gameState;
+    }
+
+    public Tetromino getCurrent() {
+        return current;
     }
 }

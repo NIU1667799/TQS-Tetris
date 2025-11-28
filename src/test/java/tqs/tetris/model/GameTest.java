@@ -100,4 +100,28 @@ public class GameTest {
 
     }
 
+    @Test
+    public void movementTest() {
+        MockBoard mockBoard = new MockBoard(10, 20);
+        Game game = new Game(mockBoard, new MockTetrominoFactory('I', 1), GameState.RUNNING);
+
+        Tetromino current = game.getCurrent();
+        int initialX = current.getX();
+
+        // left decreases X
+        game.moveLeft();
+        assertEquals(initialX - 1, current.getX());
+
+        // right increases X
+        game.moveRight();
+        assertEquals(initialX, current.getX());
+
+        // collision: place a blocking piece at the left position
+        Tetromino blocking = new Tetromino('I', 1);
+        blocking.setPosition(initialX - 1, current.getY());
+        mockBoard.placeTetromino(blocking);
+
+    }
+
+
 }

@@ -2,7 +2,6 @@ package tqs.tetris.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import org.junit.jupiter.api.Test;
 
 public class GameTest {
@@ -80,6 +79,25 @@ public class GameTest {
         int initialY = game.getCurrent().getY();
         game.tick();
         assertEquals(initialY - 1, game.getCurrent().getY());
+
+        // Drop collision at bottom
+        while (game.getCurrent().getY() > 0) {
+            game.tick();
+        }
+        int finalY = game.getCurrent().getY();
+        assertEquals(0, finalY, "Piece should stop at bottom");
+
+        // Piece -> locked & new one spawned
+        Tetromino lockedPiece = game.getCurrent(); // after spawn
+        assertNotNull(lockedPiece, "New piece should be spawned after locking");
+    
+        assertEquals(GameState.RUNNING, game.getGameState());
+
+        // Game over
+        Tetromino blocking = new Tetromino('I', 1);
+        blocking.setPosition(mockBoard.getWidth() / 2 - 1, mockBoard.getHeight() - 1);
+        mockBoard.placeTetromino(blocking);
+
     }
 
 }

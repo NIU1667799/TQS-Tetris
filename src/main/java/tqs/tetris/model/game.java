@@ -83,4 +83,19 @@ public class Game {
     public Tetromino getCurrent() {
         return current;
     }
+
+    public void moveLeft() {
+        current.setPosition(current.getX() - 1, current.getY());
+        if (board.collides(current)) {
+            current.setPosition(current.getX() + 1, current.getY());
+        }
+    }
+
+    public void moveRight() {
+        current.setPosition(current.getX() + 1, current.getY());
+        if (board.collides(current)) {
+            current.setPosition(current.getX() - 1, current.getY());
+        }
+    }
+
 }

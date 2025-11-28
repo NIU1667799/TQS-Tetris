@@ -44,4 +44,14 @@ public class GameTest {
         game.gameOver();
         assertEquals(mockStateGameOver.getValue(), game.getGameState());
     }
+
+    @Test
+    public void spawnNewPieceTest() {
+        MockBoard mockBoard = new MockBoard(10, 20);
+        Game game = new Game(mockBoard, new MockTetrominoFactory('I', 1), GameState.RUNNING);
+        Tetromino current = game.getCurrent();
+
+        assertEquals(10 / 2 - 1, current.getX());
+        assertEquals(20 - 1, current.getY());
+    }
 }

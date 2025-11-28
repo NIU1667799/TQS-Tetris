@@ -98,4 +98,14 @@ public class Game {
         }
     }
 
+    public void rotateCurrent() {
+        current.rotate();
+        if (board.collides(current)) {
+            // if collides undo rotation to not glitch
+            current.rotate();
+            current.rotate();
+            current.rotate();
+        }
+    }
+
 }

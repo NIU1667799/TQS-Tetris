@@ -25,6 +25,7 @@ public class Game {
         this.board = board;
         this.tetrominoFactory = tetrominoFactory;
         this.gameState = gameState;
+        spawnNewPiece();
     }
 
     public void resume(){

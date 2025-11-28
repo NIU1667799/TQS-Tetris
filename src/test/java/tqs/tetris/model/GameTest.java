@@ -1,6 +1,8 @@
 package tqs.tetris.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import org.junit.jupiter.api.Test;
 
 public class GameTest {
@@ -66,6 +68,18 @@ public class GameTest {
         Tetromino smallCurrent = smallGame.getCurrent();
         assertEquals(8 / 2 - 1, smallCurrent.getX());
         assertEquals(16 - 1, smallCurrent.getY());
-        
+
     }
+
+
+    @Test
+    public void tickMovesPieceDown() {
+        MockBoard mockBoard = new MockBoard(10, 20);
+        Game game = new Game(mockBoard, new MockTetrominoFactory('I', 1), GameState.RUNNING);
+
+        int initialY = game.getCurrent().getY();
+        game.tick();
+        assertEquals(initialY - 1, game.getCurrent().getY());
+    }
+
 }

@@ -12,6 +12,8 @@ import tqs.tetris.model.Board;
 import tqs.tetris.model.Game;
 import tqs.tetris.model.Tetromino;
 
+/* Class designed to render visual components of our Tetris game */
+
 public class Renderer extends JPanel {
     private Game game;
     private final int cellSize = 30; // pixel size of each block

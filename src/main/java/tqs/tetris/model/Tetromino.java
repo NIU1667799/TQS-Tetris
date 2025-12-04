@@ -13,6 +13,10 @@ public class Tetromino {
 
     // First matrix is rotation 0, 
     // Second is rotation 1, etc.
+    //SHAPES[shapeIndex][rotation][row][col]
+    // shapeIndex: 0->I, 1->O, 2->T, 3->S, 4->Z, 5->J, 6->L
+    // rotation: 0,1,2,3 --> 0, 90, 180, 270 degress
+    // each matrix isthe shape
     private static final int[][][][] SHAPES = {
         // I
         {
@@ -90,12 +94,15 @@ public class Tetromino {
         this.y = y;
     }
 
+    /**
+     * this method computes the board coordinates of the occupied cells of the tetromino
+     * for each cell with value 1, compute its board coordinates based on the tetromino position (x,y)
+     * and add it to the list of occupied cells, offset by the tetromino position
+     */
     public int[][] getCells() {
         int[][] matrix = getShapeMatrix();
         List<int[]> occupied = new ArrayList<>();
-
         int h = matrix.length;
-
         for(int row = 0; row < h ; row++) {
             for(int col = 0; col < matrix[row].length; col++){
                 if(matrix[row][col] == 1){

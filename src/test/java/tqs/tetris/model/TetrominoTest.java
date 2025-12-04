@@ -13,9 +13,7 @@ import org.junit.jupiter.api.Test;
  */
 public class TetrominoTest {
     
-    @Test
-    public void testTetrominoInitialization() {
-        /* We decided that shapes will be represented by a char, 
+    /* We decided that shapes will be represented by a char, 
         while the color will be represented by a value from 0 to 5 where:
         0 -> red
         1 -> green
@@ -23,11 +21,14 @@ public class TetrominoTest {
         3 -> yellow 
         4 -> magenta
         5 -> cyan
-
         color -> MIN, -1, 0, 1, 3, 4, 5, 6, MAX
         shapes -> 'I', 'O', 'T', 'S', 'Z', 'J', 'L'
-        */
 
+        type of test:
+        valors limits --> color min and max values, shape valid values
+    */
+    @Test
+    public void testTetrominoInitialization() {
         // Test valid color values
         Tetromino tetromino0 = new Tetromino('T', 0);
         assertEquals(0, tetromino0.getColor());

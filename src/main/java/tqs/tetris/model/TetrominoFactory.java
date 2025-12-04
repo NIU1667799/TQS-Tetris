@@ -2,6 +2,10 @@ package tqs.tetris.model;
 
 import java.util.Random;
 
+/**
+ * this class creates tetrominoes with random shapes and colors, 
+ * or creates with specific shape and color
+ */
 public class TetrominoFactory {
     private static final char[] SHAPES = {'I', 'O', 'T', 'S', 'Z', 'J', 'L'};
     private static final int COLOR_RANGE = 6;

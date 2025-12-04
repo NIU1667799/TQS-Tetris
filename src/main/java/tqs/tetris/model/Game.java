@@ -9,7 +9,7 @@ public class Game {
     public Game() {
         this.board = new Board(10, 20);
         this.tetrominoFactory = new TetrominoFactory();
-        this.gameState = GameState.RUNNING;
+        this.gameState = GameState.RUNNING; // default state
         spawnNewPiece();
     }
 
@@ -20,6 +20,11 @@ public class Game {
         spawnNewPiece();
     }
 
+    /**
+     * Spawn a new tetromino at the top of the board
+     * use tetrominoFactory to create a random tetromino, positions the piece horizontally centered at the top of the board
+     * if collides, set game state to GAME_OVER
+     */
     private void spawnNewPiece() {
         current = tetrominoFactory.createRandomTetramino();
         current.setPosition(board.getWidth() / 2 - 1, board.getHeight() - 1);
@@ -28,14 +33,17 @@ public class Game {
         }
     }
 
+    /**
+     * if the game is not playable, then dont do anything
+     * and otherwise, move the current piece one row down, 
+     * if it collides, move the piece back up, lock it on the board, clear lines, and spawn a new piece
+     */
     public void tick() {
         if (!gameState.isPlayable()) {
             return;
         }
-
         // Move current piece down by 1
         current.setPosition(current.getX(), current.getY() - 1);
-
         if (board.collides(current)) {
             current.setPosition(current.getX(), current.getY() + 1);
             board.placeTetromino(current);

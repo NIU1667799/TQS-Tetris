@@ -133,6 +133,10 @@ public class BoardTest {
      * In this test, we will place different tetrominoes on the same board and test diferent collision cases
      * make them all fall until colliding with the floor or with already placed pieces
      * then check that the final occupied cells are as expected
+     * 
+     * type of test:
+     * valors limits --> pieces colliding with floor and walls
+     * caixa blanca --> multiple paths of board.collides() and board.placeTetromino()
      */
 
     @Test
@@ -269,6 +273,9 @@ public class BoardTest {
     /**
      * test for line clearing, no full rows, one full row, two consecutive full rows
      * the value returned means the number of cleared rows
+     * type of test:
+     * caixa blanca --> multiple paths of board.clearLines()
+     * particio equivalent --> 0 lines, 1 line, 2 lines
      */
     @Test
     void testClearLines() {
@@ -303,6 +310,9 @@ public class BoardTest {
     /**
      * This test will check the limit cases for line clearing
      * test the top row
+     * type of test:
+     * valors limits --> top row index
+     * caixa blanca --> path of board.clearLines() that clears the top row
      */
     @Test
     void testClearLinesBoundary() {

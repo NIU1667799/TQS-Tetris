@@ -115,6 +115,7 @@ public class GameTest {
         }
         int finalY = game.getCurrent().getY();
         assertEquals(0, finalY, "Piece should stop at bottom");
+        game.tick();
 
         // Piece -> locked & new one spawned
         Tetromino lockedPiece = game.getCurrent(); // after spawn
@@ -125,6 +126,27 @@ public class GameTest {
         Tetromino blocking = new Tetromino('I', 1);
         blocking.setPosition(mockBoard.getWidth() / 2 - 1, mockBoard.getHeight() - 1);
         mockBoard.placeTetromino(blocking);
+    }
+
+    @Test
+    public void testTickNotPlayable()
+    {
+        MockBoard mockBoard = new MockBoard(10, 20);
+        MockTetrominoFactory mockFactory = new MockTetrominoFactory('I', 1);
+
+        // Start game in no playable state
+        Game game = new Game(mockBoard, mockFactory, GameState.PAUSED);
+
+        Tetromino currentBefore = game.getCurrent();
+        int xBefore = currentBefore.getX();
+        int yBefore = currentBefore.getY();
+
+        game.tick();
+
+        Tetromino currentAfter = game.getCurrent();
+        //same piece and same position, no movement
+        assertEquals(xBefore, currentAfter.getX());
+        assertEquals(yBefore, currentAfter.getY());
     }
 
     /**

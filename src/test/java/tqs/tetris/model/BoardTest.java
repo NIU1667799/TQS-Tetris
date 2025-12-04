@@ -1,6 +1,7 @@
 package tqs.tetris.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -319,5 +320,25 @@ public class BoardTest {
 
         //postcondition check, empty after clearing
         assertTrue(board.isEmpty(0, topRow));
+    }
+
+    @Test
+    void testInvalidBoardSize() {
+        // boundary case, invalid partition: width <= 0
+        assertThrows(IllegalArgumentException.class, () -> new Board(0, 10));
+        assertThrows(IllegalArgumentException.class, () -> new Board(-1, 20));
+
+        // boundary case, invalid partition: height <= 0
+        assertThrows(IllegalArgumentException.class, () -> new Board(10, 0));
+        assertThrows(IllegalArgumentException.class, () -> new Board(10, -5));
+    }
+
+    @Test
+    void testIsEmptyOutOfBounds() {
+        Board board = new Board(10, 20);
+        assertFalse(board.isEmpty(-1, 0));
+        assertFalse(board.isEmpty(10, 0));
+        assertFalse(board.isEmpty(0, -1));
+        assertFalse(board.isEmpty(0, 20));
     }
 }

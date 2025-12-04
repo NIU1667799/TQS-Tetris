@@ -21,6 +21,15 @@ public class Board {
         return height;
     }
 
+    /**
+     * Check if cell is empty
+     * @param x column
+     * @param y row
+     * @return
+     * false if out of bounds
+     * true if empty
+     * false if filled
+     */
     public boolean isEmpty(int x, int y) {
         if(x < 0 || x >= width || y < 0 || y >= height) {
             return false;
@@ -28,6 +37,14 @@ public class Board {
         return grid[y][x] == 0;
     }
 
+    /**
+     * Set cell to filled or empty
+     * @param x column
+     * @param y row
+     * @param filled true to fill, false to empty
+     * @return
+     * false if out of bounds, true if successful
+     */
     public boolean setCell(int x, int y, boolean filled) {
         if(y<0||y>=height||x<0||x>=width) {
             return false;
@@ -36,17 +53,24 @@ public class Board {
         return true;
     }
 
+    /**
+     * Check if tetromino collides with filled cells or out of bounds
+     * @param tetromino the tetromino to check
+     * @return
+     * true if collides, false otherwise
+     * the collision condition is:
+     * when any cell of the tetromino is out of bounds
+     * or when any cell of the tetromino overlaps a filled cell in the board
+     */
     public boolean collides(Tetromino tetromino) {
         int[][] cells = tetromino.getCells();
 
         for(int[] cell:cells){
             int x = cell[0];
             int y = cell[1];
-
             if(x < 0 || x >= width){
                 return true;
             }
-
             if(y < 0){
                 return true;
             }
@@ -57,6 +81,12 @@ public class Board {
         return false;
     }
 
+    /**
+     * Place tetromino on the board (set its cells to filled)
+     * @param tetromino
+     * for each cell of the tetromino, if it lies inside the board, set it to filled --> 1
+     * and ignore cells that are outside theboard
+     */
     public void placeTetromino(Tetromino tetromino) {
         int[][] cells = tetromino.getCells();
         for (int[] cell : cells) {
@@ -71,6 +101,8 @@ public class Board {
     /**
      * Returns the number of cleared rows.
      * bottom row --> y=0
+     * scan each row from bottom to top, a row is full if all its cells are filled --> 1
+     * when a row is full, remove it and shift all rows above it down
      */
     public int clearLines() {
         int cleared = 0;

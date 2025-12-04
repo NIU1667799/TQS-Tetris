@@ -351,4 +351,25 @@ public class BoardTest {
         assertFalse(board.isEmpty(0, -1));
         assertFalse(board.isEmpty(0, 20));
     }
+
+    @Test
+    void testSetCell() {
+        Board board = new Board(10, 20);
+        board.setCell(-1, 0, true);
+        board.setCell(10, 0, true);
+        board.setCell(0, -1, true);
+        board.setCell(0, 20, true);
+        for (int y = 0; y < board.getHeight(); y++) {
+            for (int x = 0; x < board.getWidth(); x++) {
+                assertTrue(board.isEmpty(x, y));
+            }
+        }
+        assertFalse(board.setCell(-1, 0, true));
+        // x >= width
+        assertFalse(board.setCell(board.getWidth(), 0, true)); // x = 10
+        // y < 0
+        assertFalse(board.setCell(0, -1, true));
+        // y >= height
+        assertFalse(board.setCell(0, board.getHeight(), true)); 
+    }
 }

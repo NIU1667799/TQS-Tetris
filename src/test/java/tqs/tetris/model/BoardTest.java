@@ -19,9 +19,6 @@ import org.junit.jupiter.api.Test;
         x=0   x=1   x=2   x=3   x=4
  */
 
-//helper for determine tetromino type
-enum TetrominoType {I, O, T, S, Z, J, L}
-
 /*
 class MockTetromino implements Tetramino {
     private final int[][] cells;
@@ -117,6 +114,11 @@ public class BoardTest {
         assertEquals(20, board.getHeight());
     }
     
+    /**
+     * invariant case, all cells are empty on a new board.
+     * statement coverage of isEmpty().
+     */
+
     @Test
     void boardEmptyCells() {
         for(int y = 0; y<board.getHeight(); y++) {
@@ -128,7 +130,8 @@ public class BoardTest {
 
     /**
      * In this test, we will place different tetrominoes on the same board and test diferent collision cases
-     * declare a tetromino mockobject and starts falling down until reaching to the bottom or collides with another tetromino
+     * make them all fall until colliding with the floor or with already placed pieces
+     * then check that the final occupied cells are as expected
      */
 
     @Test
@@ -136,7 +139,7 @@ public class BoardTest {
         int W = board.getWidth();
         int H = board.getHeight();
 
-        //O shape in the center of the board
+        //O shape in the center of the board, fall until collides with floor
         Tetromino oCenter = new Tetromino('O', 1);
         int ox = W/2;
         int oy = H/2;
@@ -263,7 +266,8 @@ public class BoardTest {
     }
 
     /**
-     * comprobar de todo el board, si hay alguna fila completa
+     * test for line clearing, no full rows, one full row, two consecutive full rows
+     * the value returned means the number of cleared rows
      */
     @Test
     void testClearLines() {
@@ -287,6 +291,8 @@ public class BoardTest {
         }
         cleared = board.clearLines();
         assertEquals(2, cleared);
+
+        //both rows should be empty after clearing
         for (int x = 0; x < board.getWidth(); x++) {
             assertTrue(board.isEmpty(x, 0));
             assertTrue(board.isEmpty(x, 1));
@@ -300,12 +306,18 @@ public class BoardTest {
     @Test
     void testClearLinesBoundary() {
         int topRow = board.getHeight()-1;
+
+        //fill the whole top row
         for(int i = 0; i < board.getWidth();i++){
             board.setCell(i, topRow, true);
         }
+
+        //precondition check
         assertFalse(board.isEmpty(0, topRow));
         int cleared = board.clearLines();
         assertEquals(1, cleared);
+
+        //postcondition check, empty after clearing
         assertTrue(board.isEmpty(0, topRow));
     }
 }
